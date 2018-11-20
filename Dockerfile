@@ -1,9 +1,9 @@
-from golang:alpine as build
+from golang:stretch as build
 
 # Otherwise make runs with /bin/sh
 ENV SHELL "bash"
 
-RUN apk add --no-cache git make bash curl tar && \
+RUN \
 
 # Install dep
     curl -sL https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 > $GOPATH/bin/dep && \
@@ -18,7 +18,9 @@ RUN apk add --no-cache git make bash curl tar && \
     bash -c "make" && \
     cp ./build/gluster-exporter /tmp/
 
-from alpine
+from debian:stretch
+
+RUN apt update && apt install -y glusterfs-server && apt clean
 
 copy --from=build /tmp/gluster-exporter /
 copy gluster-exporter.toml /
