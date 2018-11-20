@@ -20,7 +20,7 @@ RUN \
 
 from debian:stretch
 
-RUN apt update && apt install -y glusterfs-server && apt clean
+RUN apt update && apt install -y glusterfs-server procps && apt clean
 
 copy --from=build /tmp/gluster-exporter /
 copy gluster-exporter.toml /
