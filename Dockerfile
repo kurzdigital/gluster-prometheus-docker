@@ -16,14 +16,12 @@ RUN \
     git clone https://github.com/gluster/gluster-prometheus.git && \
     cd gluster-prometheus && \
     bash -c "make" && \
+
+    cp ./extras/conf/gluster-exporter.toml.sample /tmp/gluster-exporter.toml && \
     cp ./build/gluster-exporter /tmp/
 
-from debian:stretch
-
-RUN apt update && apt install -y glusterfs-server procps && apt clean
+from scratch
 
 copy --from=build /tmp/gluster-exporter /
-copy gluster-exporter.toml /
-run chmod 755 /gluster-exporter
-
-CMD ["/gluster-exporter", "--config=/gluster-exporter.toml"]
+copy --from=build /tmp/gluster-exporter.toml /
+copy gluster-exporter.service /
