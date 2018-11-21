@@ -3,7 +3,7 @@ Description=Gluster Prometheus Exporter
 After=glusterd.service
 
 [Service]
-ExecStart=/gluster-exporter --config=/gluster-exporter.toml
+ExecStart=/gluster-exporter/gluster-exporter --config=/gluster-exporter/gluster-exporter.toml
 KillMode=process
 
 [Install]
