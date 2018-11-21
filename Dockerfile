@@ -20,7 +20,7 @@ RUN \
     cp ./extras/conf/gluster-exporter.toml.sample /tmp/gluster-exporter.toml && \
     cp ./build/gluster-exporter /tmp/
 
-from scratch
+from alpine
 
 copy --from=build /tmp/gluster-exporter /
 copy --from=build /tmp/gluster-exporter.toml /
